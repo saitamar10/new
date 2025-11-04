@@ -23,6 +23,7 @@ define('ONENAV_ASSETS', ONENAV_URI . '/assets');
 
 require_once ONENAV_DIR . '/includes/post-types.php';
 require_once ONENAV_DIR . '/includes/customizer.php';
+require_once ONENAV_DIR . '/includes/customizer-extended.php';
 require_once ONENAV_DIR . '/includes/api-endpoints.php';
 require_once ONENAV_DIR . '/includes/trend-sync.php';
 
@@ -64,17 +65,20 @@ add_action('after_setup_theme', 'onenav_theme_setup');
 function onenav_enqueue_assets() {
     // Style.css (theme stylesheet) otomatik yüklenir
     wp_enqueue_style('onenav-style', get_stylesheet_uri(), array(), ONENAV_VERSION);
-    wp_enqueue_style('onenav-responsive', ONENAV_ASSETS . '/css/responsive.css', array('onenav-style'), ONENAV_VERSION);
-    wp_enqueue_style('onenav-admin', ONENAV_ASSETS . '/css/admin.css', array('onenav-style'), ONENAV_VERSION);
-    
+    wp_enqueue_style('onenav-components', ONENAV_ASSETS . '/css/components.css', array('onenav-style'), ONENAV_VERSION);
+    wp_enqueue_style('onenav-dark-mode', ONENAV_ASSETS . '/css/dark-mode.css', array('onenav-components'), ONENAV_VERSION);
+    wp_enqueue_style('onenav-responsive', ONENAV_ASSETS . '/css/responsive.css', array('onenav-dark-mode'), ONENAV_VERSION);
+
     // Scripts - jQuery üzerine build
     wp_enqueue_script('onenav-main', ONENAV_ASSETS . '/js/main.js', array('jquery'), ONENAV_VERSION, true);
-    
+
     // Localize script for AJAX
     wp_localize_script('onenav-main', 'onenavData', array(
         'ajaxUrl' => admin_url('admin-ajax.php'),
         'nonce' => wp_create_nonce('onenav_nonce'),
         'siteUrl' => site_url(),
+        'darkMode' => get_theme_mod('onenav_enable_darkmode', false),
+        'showDarkModeToggle' => get_theme_mod('onenav_show_darkmode_toggle', true),
     ));
 }
 add_action('wp_enqueue_scripts', 'onenav_enqueue_assets');

@@ -11,6 +11,10 @@
             this.loadTrendingKeywords();
             this.setupSearch();
             this.setupFilters();
+            this.setupDarkMode();
+            this.setupHeroSearch();
+            this.setupCategoryFilter();
+            this.setupAnimations();
         },
 
         setupEventListeners: function() {
@@ -188,6 +192,175 @@
                 data: { text: text },
                 success: function(response) {
                     callback(response.qr_url);
+                }
+            });
+        },
+
+        setupDarkMode: function() {
+            // Check for saved theme preference or default to light mode
+            const currentTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', currentTheme);
+
+            // Create dark mode toggle button if enabled
+            if (onenavData.showDarkModeToggle) {
+                const toggleBtn = $('<button>')
+                    .addClass('dark-mode-toggle')
+                    .attr('title', 'Toggle Dark Mode')
+                    .html(currentTheme === 'dark' ? '☀️' : '🌙')
+                    .appendTo('body');
+
+                toggleBtn.on('click', function() {
+                    OneNav.toggleDarkMode();
+                });
+            }
+
+            // If dark mode is enabled by default in customizer
+            if (onenavData.darkMode && currentTheme === 'light') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        },
+
+        toggleDarkMode: function() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+
+            // Update toggle button icon
+            $('.dark-mode-toggle').html(newTheme === 'dark' ? '☀️' : '🌙');
+        },
+
+        setupHeroSearch: function() {
+            const heroSearchInput = $('#hero-search');
+            let searchTimeout;
+
+            heroSearchInput.on('keyup', function() {
+                clearTimeout(searchTimeout);
+                const query = $(this).val();
+
+                if (query.length < 2) {
+                    $('.hero-search-results').hide();
+                    return;
+                }
+
+                searchTimeout = setTimeout(() => {
+                    OneNav.performSearch(query, '.hero-search-results');
+                }, 300);
+            });
+
+            // Search button click
+            $('.hero-search-btn').on('click', function() {
+                const query = heroSearchInput.val();
+                if (query.length >= 2) {
+                    window.location.href = `${onenavData.siteUrl}/?s=${encodeURIComponent(query)}`;
+                }
+            });
+
+            // Enter key
+            heroSearchInput.on('keypress', function(e) {
+                if (e.which === 13) {
+                    $('.hero-search-btn').click();
+                }
+            });
+        },
+
+        setupCategoryFilter: function() {
+            // Handle category sidebar clicks with smooth loading
+            $('.category-nav-item').on('click', function(e) {
+                if ($(this).attr('href').includes('?category=')) {
+                    e.preventDefault();
+                    const category = $(this).data('category');
+
+                    $('.category-nav-item').removeClass('active');
+                    $(this).addClass('active');
+
+                    // Add loading state
+                    $('.main-content').addClass('loading');
+
+                    // Update URL without reload
+                    if (category) {
+                        history.pushState(null, '', `?category=${category}`);
+                    } else {
+                        history.pushState(null, '', '/');
+                    }
+
+                    // Reload sections with new category
+                    setTimeout(() => {
+                        location.reload();
+                    }, 300);
+                }
+            });
+        },
+
+        setupAnimations: function() {
+            // Intersection Observer for scroll animations
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('animated');
+                        }
+                    });
+                }, {
+                    threshold: 0.1,
+                    rootMargin: '0px 0px -50px 0px'
+                });
+
+                // Observe cards
+                document.querySelectorAll('.card').forEach(card => {
+                    observer.observe(card);
+                });
+
+                // Observe sections
+                document.querySelectorAll('.section').forEach(section => {
+                    observer.observe(section);
+                });
+            }
+
+            // Smooth scroll for anchor links
+            $('a[href^="#"]').on('click', function(e) {
+                const target = $(this.getAttribute('href'));
+                if (target.length) {
+                    e.preventDefault();
+                    $('html, body').stop().animate({
+                        scrollTop: target.offset().top - 100
+                    }, 800);
+                }
+            });
+
+            // Card hover effects
+            $('.card').hover(
+                function() {
+                    $(this).addClass('hover');
+                },
+                function() {
+                    $(this).removeClass('hover');
+                }
+            );
+        },
+
+        // Add click tracking with analytics
+        trackClick: function(postId) {
+            $.ajax({
+                type: 'POST',
+                url: onenavData.ajaxUrl,
+                data: {
+                    action: 'onenav_track_click',
+                    site_id: postId,
+                    nonce: onenavData.nonce
+                },
+                success: function(response) {
+                    // Update click count in UI if element exists
+                    const clickCountElement = $(`.card[data-post-id="${postId}"] .stat-text`);
+                    if (clickCountElement.length) {
+                        const currentCount = parseInt(clickCountElement.text().replace(/,/g, '')) || 0;
+                        clickCountElement.text((currentCount + 1).toLocaleString());
+                    }
+                },
+                error: function(err) {
+                    console.log('Click tracking failed:', err);
                 }
             });
         }
