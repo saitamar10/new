@@ -1,0 +1,154 @@
+/**
+ * OneNav - Dark Mode Styles
+ *
+ * @package OneNav
+ */
+
+[data-theme="dark"] {
+    --primary-color: #9333ea;
+    --secondary-color: #ec4899;
+    --dark-bg: #0f172a;
+    --light-bg: #1e293b;
+    --text-dark: #f1f5f9;
+    --text-light: #94a3b8;
+    --border-color: #334155;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+/* ============================================
+   DARK MODE TOGGLE BUTTON
+   ============================================ */
+
+.dark-mode-toggle {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.dark-mode-toggle:hover {
+    transform: scale(1.1) rotate(10deg);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* ============================================
+   DARK MODE BASE STYLES
+   ============================================ */
+
+[data-theme="dark"] body {
+    background-color: var(--dark-bg);
+    color: var(--text-dark);
+}
+
+[data-theme="dark"] .card,
+[data-theme="dark"] .sidebar-sticky {
+    background: var(--light-bg);
+    border: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] header {
+    background: linear-gradient(135deg, #1e1b4b, #7c2d12);
+}
+
+[data-theme="dark"] .hero-section {
+    background: linear-gradient(135deg, #1e1b4b, #7c2d12);
+}
+
+[data-theme="dark"] .hero-search-box {
+    background: var(--light-bg);
+}
+
+[data-theme="dark"] .hero-search-input {
+    color: var(--text-dark);
+    background: transparent;
+}
+
+[data-theme="dark"] .hero-search-input::placeholder {
+    color: var(--text-light);
+}
+
+[data-theme="dark"] .section-title,
+[data-theme="dark"] .card-title,
+[data-theme="dark"] .card-link {
+    color: var(--text-dark);
+}
+
+[data-theme="dark"] .card-description,
+[data-theme="dark"] .card-meta {
+    color: var(--text-light);
+}
+
+[data-theme="dark"] .category-nav-item {
+    color: var(--text-light);
+}
+
+[data-theme="dark"] .category-nav-item:hover {
+    background: rgba(168, 85, 247, 0.1);
+    color: var(--primary-color);
+}
+
+[data-theme="dark"] .category-nav-item.active {
+    background: rgba(168, 85, 247, 0.2);
+}
+
+[data-theme="dark"] .card-footer {
+    border-top-color: var(--border-color);
+}
+
+[data-theme="dark"] .card-btn-secondary {
+    background: var(--dark-bg);
+    color: var(--text-dark);
+}
+
+[data-theme="dark"] .card-btn-secondary:hover {
+    background: var(--border-color);
+}
+
+[data-theme="dark"] .feature-tag {
+    background: var(--dark-bg);
+    color: var(--text-light);
+}
+
+[data-theme="dark"] .sidebar-stats {
+    border-top-color: var(--border-color);
+}
+
+[data-theme="dark"] .search-input {
+    background: var(--light-bg);
+    color: var(--text-dark);
+}
+
+[data-theme="dark"] .search-results {
+    background: var(--light-bg);
+    border: 1px solid var(--border-color);
+}
+
+/* ============================================
+   SMOOTH TRANSITIONS
+   ============================================ */
+
+body,
+.card,
+.sidebar-sticky,
+.hero-section,
+.hero-search-box,
+.section-title,
+.card-title,
+.card-link,
+.category-nav-item {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
