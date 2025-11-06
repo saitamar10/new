@@ -1035,3 +1035,315 @@ footer {
     opacity: 0.6;
     pointer-events: none;
 }
+
+/* ============================================
+   POST TYPE SPECIFIC ENHANCEMENTS
+   ============================================ */
+
+/* News Post Type Cards */
+.post-type-news .news-card {
+    border-left: 4px solid var(--primary-color);
+}
+
+.post-type-news .news-card:hover {
+    border-left-color: var(--secondary-color);
+}
+
+/* App Post Type Cards */
+.post-type-app .app-card {
+    border-top: 3px solid var(--success);
+}
+
+/* eBook Post Type Cards */
+.post-type-ebook .ebook-card {
+    border-top: 3px solid var(--warning);
+    position: relative;
+}
+
+.post-type-ebook .ebook-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #f59e0b, #d97706);
+}
+
+/* ============================================
+   READING COMFORT ENHANCEMENTS
+   ============================================ */
+
+/* Sepia Reading Mode */
+body.reading-mode-sepia {
+    background-color: #fef3e0;
+}
+
+body.reading-mode-sepia .site-card,
+body.reading-mode-sepia .news-card,
+body.reading-mode-sepia .app-card,
+body.reading-mode-sepia .ebook-card {
+    background-color: #fef9f0;
+}
+
+/* Dark Reading Mode */
+body.reading-mode-dark {
+    background-color: #1e293b;
+    color: #f1f5f9;
+}
+
+body.reading-mode-dark .site-card,
+body.reading-mode-dark .news-card,
+body.reading-mode-dark .app-card,
+body.reading-mode-dark .ebook-card {
+    background-color: #334155;
+    color: #f1f5f9;
+}
+
+body.reading-mode-dark .site-title,
+body.reading-mode-dark .news-title,
+body.reading-mode-dark .app-name,
+body.reading-mode-dark .ebook-title {
+    color: #f1f5f9;
+}
+
+/* ============================================
+   ENHANCED TYPOGRAPHY
+   ============================================ */
+
+/* Better text rendering */
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+/* Responsive typography */
+@media (max-width: 768px) {
+    body {
+        font-size: calc(var(--base-font-size, 16px) * 0.9);
+    }
+}
+
+/* ============================================
+   TRANSPARENCY & GLASS EFFECTS
+   ============================================ */
+
+.glass-effect {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.glass-effect-dark {
+    background: rgba(30, 41, 59, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Card hover effects with transparency */
+.site-card:hover,
+.news-card:hover,
+.app-card:hover,
+.ebook-card:hover {
+    background: rgba(255, 255, 255, 0.95);
+}
+
+/* ============================================
+   ACCESSIBILITY IMPROVEMENTS
+   ============================================ */
+
+/* Focus states */
+a:focus,
+button:focus,
+input:focus,
+select:focus,
+textarea:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Skip to content link */
+.skip-to-content {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--primary-color);
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    z-index: 10000;
+}
+
+.skip-to-content:focus {
+    top: 0;
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+
+@media print {
+    header,
+    footer,
+    .header-actions,
+    .filter-tabs,
+    .trending-bar,
+    nav {
+        display: none !important;
+    }
+
+    body {
+        font-size: 12pt;
+        line-height: 1.5;
+        color: black;
+        background: white;
+    }
+
+    .news-article,
+    .app-detail,
+    .ebook-detail {
+        box-shadow: none;
+        border: 1px solid #ddd;
+    }
+
+    a {
+        color: black;
+        text-decoration: underline;
+    }
+
+    a[href^="http"]:after {
+        content: " (" attr(href) ")";
+        font-size: 10pt;
+    }
+}
+
+/* ============================================
+   CUSTOM SCROLLBAR STYLING
+   ============================================ */
+
+/* Webkit browsers (Chrome, Safari, newer Edge) */
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--light-bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary-color);
+}
+
+/* Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-color) var(--light-bg);
+}
+
+/* ============================================
+   BADGE STYLES FOR NEWS CATEGORIES
+   ============================================ */
+
+.news-badge-teknoloji {
+    background: #3b82f6;
+}
+
+.news-badge-spor {
+    background: #10b981;
+}
+
+.news-badge-ekonomi {
+    background: #f59e0b;
+}
+
+.news-badge-saglik {
+    background: #ef4444;
+}
+
+.news-badge-egitim {
+    background: #8b5cf6;
+}
+
+.news-badge-gundem {
+    background: #ec4899;
+}
+
+/* ============================================
+   LOADING ANIMATIONS
+   ============================================ */
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.loading-skeleton {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
+    background-size: 200% 100%;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+.shimmer {
+    animation: shimmer 2s infinite;
+}
+
+/* ============================================
+   NOTIFICATION STYLES
+   ============================================ */
+
+.notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 10000;
+    animation: slideInRight 0.3s ease;
+}
+
+.notification.success {
+    border-left: 4px solid var(--success);
+}
+
+.notification.error {
+    border-left: 4px solid var(--danger);
+}
+
+.notification.info {
+    border-left: 4px solid var(--primary-color);
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}

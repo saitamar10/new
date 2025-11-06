@@ -308,7 +308,7 @@ function onenav_security_headers() {
     header('X-Frame-Options: SAMEORIGIN');
     header('X-XSS-Protection: 1; mode=block');
 }
-add_action('wp_head', 'onenav_security_headers');
+add_action('send_headers', 'onenav_security_headers');
 
 // ============================================
 // PERFORMANCE OPTIMIZATION
@@ -406,4 +406,51 @@ function onenav_export_sites() {
 
     wp_reset_postdata();
     return $export_data;
+}
+
+// ============================================
+// READING TIME CALCULATOR
+// ============================================
+
+function onenav_reading_time() {
+    $content = get_post_field('post_content', get_the_ID());
+    $word_count = str_word_count(strip_tags($content));
+    $reading_time = ceil($word_count / 200); // 200 words per minute average
+
+    if ($reading_time == 1) {
+        return '1 dakika okuma';
+    } else {
+        return $reading_time . ' dakika okuma';
+    }
+}
+
+// ============================================
+// GET POST GALLERY IMAGE IDS
+// ============================================
+
+function get_post_gallery_ids() {
+    $post = get_post();
+
+    if (!$post) {
+        return array();
+    }
+
+    if (preg_match_all('/' . get_shortcode_regex() . '/s', $post->post_content, $matches, PREG_SET_ORDER) && !empty($matches)) {
+        foreach ($matches as $shortcode) {
+            if ('gallery' === $shortcode[2]) {
+                $srcs = array();
+                $ids = array();
+
+                $shortcode_attrs = shortcode_parse_atts($shortcode[3]);
+
+                if (!empty($shortcode_attrs['ids'])) {
+                    $ids = explode(',', $shortcode_attrs['ids']);
+                    $ids = array_map('trim', $ids);
+                    return $ids;
+                }
+            }
+        }
+    }
+
+    return array();
 }
