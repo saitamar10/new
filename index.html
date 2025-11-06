@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OneNav - Kapsamlı Navigasyon Portalı</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ==================== HEADER WITH GRADIENT ==================== -->
+    <header class="header-gradient">
+        <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Toggle Dark Mode">
+            <i class="fas fa-moon"></i>
+        </button>
+
+        <div class="header-container">
+            <div class="search-section">
+                <h1>Discover The Best Websites</h1>
+
+                <!-- Search Engine Tabs -->
+                <div class="search-tabs">
+                    <button class="search-tab active" data-engine="baidu">
+                        <i class="fab fa-google"></i> Baidu
+                    </button>
+                    <button class="search-tab" data-engine="google">
+                        <i class="fab fa-google"></i> Google
+                    </button>
+                    <button class="search-tab" data-engine="bing">
+                        <i class="fab fa-microsoft"></i> Bing
+                    </button>
+                </div>
+
+                <!-- Search Bar -->
+                <div class="search-bar">
+                    <input type="text" id="searchInput" placeholder="Arama yapın...">
+                    <button id="searchBtn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==================== NAVIGATION MENU ==================== -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <ul class="nav-menu">
+                <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="tools.html"><i class="fas fa-robot"></i> Tools</a></li>
+                <li><a href="#"><i class="fas fa-search"></i> Search</a></li>
+                <li><a href="blog.html"><i class="fas fa-users"></i> Community</a></li>
+                <li><a href="#"><i class="fas fa-heart"></i> Lifestyle</a></li>
+                <li><a href="blog.html"><i class="fas fa-newspaper"></i> News</a></li>
+                <li><a href="#"><i class="fas fa-briefcase"></i> Jobs</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ==================== POPULAR TAGS ==================== -->
+    <section class="popular-tags">
+        <div class="tags-scroll">
+            <div class="tag-card">
+                <i class="fas fa-rocket"></i>
+                <span>TheFuture</span>
+            </div>
+            <div class="tag-card">
+                <i class="fas fa-image"></i>
+                <span>4K Wallpaper</span>
+            </div>
+            <div class="tag-card">
+                <i class="fas fa-brain"></i>
+                <span>AI Tools</span>
+            </div>
+            <div class="tag-card">
+                <i class="fas fa-book"></i>
+                <span>E-Kitaplar</span>
+            </div>
+            <div class="tag-card">
+                <i class="fas fa-code"></i>
+                <span>Developer</span>
+            </div>
+            <div class="tag-card">
+                <i class="fas fa-palette"></i>
+                <span>Design</span>
+            </div>
+            <div class="tag-card">
+                <i class="fas fa-music"></i>
+                <span>Music</span>
+            </div>
+            <div class="tag-card">
+                <i class="fas fa-video"></i>
+                <span>Video</span>
+            </div>
+            <div class="tag-card">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Shopping</span>
+            </div>
+            <div class="tag-card">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Education</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== MAIN CONTENT WRAPPER ==================== -->
+    <div class="content-wrapper">
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+
+            <!-- ===== POPULAR SITES SECTION ===== -->
+            <section>
+                <h2 class="section-title">
+                    <i class="fas fa-fire"></i>
+                    Popüler Siteler
+                </h2>
+
+                <div class="card-grid">
+                    <!-- Site Card 1 -->
+                    <div class="site-card">
+                        <div class="site-card-icon">
+                            <i class="fab fa-github"></i>
+                        </div>
+                        <div class="site-card-content">
+                            <h3 class="site-card-title">GitHub</h3>
+                            <p class="site-card-desc">World's leading software development platform for version control and collaboration</p>
+                            <div class="site-card-meta">
+                                <span class="site-card-tag">Developer</span>
+                                <span class="site-card-views">
+                                    <i class="fas fa-eye"></i> 12.5K
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Site Card 2 -->
+                    <div class="site-card">
+                        <div class="site-card-icon">
+                            <i class="fab fa-figma"></i>
+                        </div>
+                        <div class="site-card-content">
+                            <h3 class="site-card-title">Figma</h3>
+                            <p class="site-card-desc">Collaborative interface design tool for creating stunning UI/UX designs</p>
+                            <div class="site-card-meta">
+                                <span class="site-card-tag">Design</span>
+                                <span class="site-card-views">
+                                    <i class="fas fa-eye"></i> 8.3K
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Site Card 3 -->
+                    <div class="site-card">
+                        <div class="site-card-icon">
+                            <i class="fab fa-youtube"></i>
+                        </div>
+                        <div class="site-card-content">
+                            <h3 class="site-card-title">YouTube</h3>
+                            <p class="site-card-desc">World's largest video sharing platform with millions of hours of content</p>
+                            <div class="site-card-meta">
+                                <span class="site-card-tag">Video</span>
+                                <span class="site-card-views">
+                                    <i class="fas fa-eye"></i> 25.7K
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Site Card 4 -->
+                    <div class="site-card">
+                        <div class="site-card-icon">
+                            <i class="fab fa-spotify"></i>
+                        </div>
+                        <div class="site-card-content">
+                            <h3 class="site-card-title">Spotify</h3>
+                            <p class="site-card-desc">Digital music streaming service with millions of songs and podcasts</p>
+                            <div class="site-card-meta">
+                                <span class="site-card-tag">Music</span>
+                                <span class="site-card-views">
+                                    <i class="fas fa-eye"></i> 15.2K
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Site Card 5 -->
+                    <div class="site-card">
+                        <div class="site-card-icon">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <div class="site-card-content">
+                            <h3 class="site-card-title">Unsplash</h3>
+                            <p class="site-card-desc">Beautiful free images and photos you can download and use for anything</p>
+                            <div class="site-card-meta">
+                                <span class="site-card-tag">Photography</span>
+                                <span class="site-card-views">
+                                    <i class="fas fa-eye"></i> 9.8K
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Site Card 6 -->
+                    <div class="site-card">
+                        <div class="site-card-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div class="site-card-content">
+                            <h3 class="site-card-title">ChatGPT</h3>
+                            <p class="site-card-desc">Advanced AI language model for conversations and content generation</p>
+                            <div class="site-card-meta">
+                                <span class="site-card-tag">AI</span>
+                                <span class="site-card-views">
+                                    <i class="fas fa-eye"></i> 32.1K
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== CLOUD STORAGE SECTION ===== -->
+            <section>
+                <h2 class="section-title">
+                    <i class="fas fa-cloud"></i>
+                    Bulut Depolama Servisleri
+                </h2>
+
+                <div class="card-grid">
+                    <!-- Cloud Storage 1 -->
+                    <div class="site-card">
+                        <div class="site-card-icon">
+                            <i class="fab fa-microsoft"></i>
+                        </div>
+                        <div class="site-card-content">
+                            <h3 class="site-card-title">OneDrive</h3>
+                            <p class="site-card-desc">Microsoft cloud storage service with 5GB free space</p>
+                            <div class="site-card-meta">
+                                <span class="site-card-tag">Storage</span>
+                                <span class="site-card-views">
+                                    <i class="fas fa-eye"></i> 5.2K
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cloud Storage 2 -->
+                    <div class="site-card">
+                        <div class="site-card-icon">
+                            <i class="fab fa-google"></i>
+                        </div>
+                        <div class="site-card-content">
+                            <h3 class="site-card-title">Google Drive</h3>
+                            <p class="site-card-desc">15GB free cloud storage from Google with seamless integration</p>
+                            <div class="site-card-meta">
+                                <span class="site-card-tag">Storage</span>
+                                <span class="site-card-views">
+                                    <i class="fas fa-eye"></i> 18.9K
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cloud Storage 3 -->
+                    <div class="site-card">
+                        <div class="site-card-icon">
+                            <i class="fab fa-dropbox"></i>
+                        </div>
+                        <div class="site-card-content">
+                            <h3 class="site-card-title">Dropbox</h3>
+                            <p class="site-card-desc">Popular file hosting service with powerful sync features</p>
+                            <div class="site-card-meta">
+                                <span class="site-card-tag">Storage</span>
+                                <span class="site-card-views">
+                                    <i class="fas fa-eye"></i> 7.1K
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cloud Storage 4 -->
+                    <div class="site-card">
+                        <div class="site-card-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <div class="site-card-content">
+                            <h3 class="site-card-title">Baidu Netdisk</h3>
+                            <p class="site-card-desc">China's largest cloud storage platform with massive free space</p>
+                            <div class="site-card-meta">
+                                <span class="site-card-tag">Storage</span>
+                                <span class="site-card-views">
+                                    <i class="fas fa-eye"></i> 4.5K
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== COMMUNITY NEWS SECTION ===== -->
+            <section>
+                <h2 class="section-title">
+                    <i class="fas fa-newspaper"></i>
+                    Topluluk Haberleri
+                </h2>
+
+                <div class="article-grid">
+                    <!-- Article 1 -->
+                    <a href="post.html" class="article-card">
+                        <img src="https://via.placeholder.com/200x140/7B61FF/ffffff?text=AI+News" alt="Article" class="article-thumbnail">
+                        <div class="article-content">
+                            <h3 class="article-title">The Future of Artificial Intelligence in Web Development</h3>
+                            <p class="article-excerpt">Discover how AI is transforming the way we build and design websites, from automated coding to intelligent UX decisions...</p>
+                            <div class="article-meta">
+                                <span><i class="fas fa-user"></i> John Doe</span>
+                                <span><i class="fas fa-calendar"></i> 2 gün önce</span>
+                                <span><i class="fas fa-eye"></i> 1.2K</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Article 2 -->
+                    <a href="post.html" class="article-card">
+                        <img src="https://via.placeholder.com/200x140/A67AF9/ffffff?text=Design" alt="Article" class="article-thumbnail">
+                        <div class="article-content">
+                            <h3 class="article-title">10 Design Trends That Will Dominate 2024</h3>
+                            <p class="article-excerpt">From minimalism to bold typography, explore the design trends that are shaping the future of digital experiences...</p>
+                            <div class="article-meta">
+                                <span><i class="fas fa-user"></i> Jane Smith</span>
+                                <span><i class="fas fa-calendar"></i> 3 gün önce</span>
+                                <span><i class="fas fa-eye"></i> 856</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Article 3 -->
+                    <a href="post.html" class="article-card">
+                        <img src="https://via.placeholder.com/200x140/F3E7FF/7B61FF?text=Tech" alt="Article" class="article-thumbnail">
+                        <div class="article-content">
+                            <h3 class="article-title">Getting Started with Cloud Computing</h3>
+                            <p class="article-excerpt">A comprehensive guide to understanding cloud services, deployment models, and how to choose the right platform...</p>
+                            <div class="article-meta">
+                                <span><i class="fas fa-user"></i> Mike Johnson</span>
+                                <span><i class="fas fa-calendar"></i> 5 gün önce</span>
+                                <span><i class="fas fa-eye"></i> 2.1K</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Article 4 -->
+                    <a href="post.html" class="article-card">
+                        <img src="https://via.placeholder.com/200x140/7B61FF/ffffff?text=Code" alt="Article" class="article-thumbnail">
+                        <div class="article-content">
+                            <h3 class="article-title">Mastering Modern JavaScript: Tips and Tricks</h3>
+                            <p class="article-excerpt">Level up your JavaScript skills with these advanced techniques, best practices, and performance optimization tips...</p>
+                            <div class="article-meta">
+                                <span><i class="fas fa-user"></i> Sarah Lee</span>
+                                <span><i class="fas fa-calendar"></i> 1 hafta önce</span>
+                                <span><i class="fas fa-eye"></i> 3.5K</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- ===== E-BOOKS / MAGAZINE SECTION ===== -->
+            <section>
+                <h2 class="section-title">
+                    <i class="fas fa-book"></i>
+                    Dergi / E-Kitap
+                </h2>
+
+                <div class="horizontal-scroll">
+                    <!-- Book 1 -->
+                    <a href="ebook.html" class="book-card">
+                        <div class="book-cover" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                            <i class="fas fa-book" style="color: white; font-size: 3rem;"></i>
+                        </div>
+                        <h4 class="book-title">The Design Book</h4>
+                        <p class="book-meta">Design • 2024</p>
+                    </a>
+
+                    <!-- Book 2 -->
+                    <a href="ebook.html" class="book-card">
+                        <div class="book-cover" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                            <i class="fas fa-code" style="color: white; font-size: 3rem;"></i>
+                        </div>
+                        <h4 class="book-title">JavaScript Mastery</h4>
+                        <p class="book-meta">Programming • 2024</p>
+                    </a>
+
+                    <!-- Book 3 -->
+                    <a href="ebook.html" class="book-card">
+                        <div class="book-cover" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                            <i class="fas fa-brain" style="color: white; font-size: 3rem;"></i>
+                        </div>
+                        <h4 class="book-title">AI for Everyone</h4>
+                        <p class="book-meta">Technology • 2024</p>
+                    </a>
+
+                    <!-- Book 4 -->
+                    <a href="ebook.html" class="book-card">
+                        <div class="book-cover" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                            <i class="fas fa-chart-line" style="color: white; font-size: 3rem;"></i>
+                        </div>
+                        <h4 class="book-title">Business Growth</h4>
+                        <p class="book-meta">Business • 2024</p>
+                    </a>
+
+                    <!-- Book 5 -->
+                    <a href="ebook.html" class="book-card">
+                        <div class="book-cover" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                            <i class="fas fa-palette" style="color: white; font-size: 3rem;"></i>
+                        </div>
+                        <h4 class="book-title">Creative Design</h4>
+                        <p class="book-meta">Art • 2024</p>
+                    </a>
+
+                    <!-- Book 6 -->
+                    <a href="ebook.html" class="book-card">
+                        <div class="book-cover" style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);">
+                            <i class="fas fa-camera" style="color: white; font-size: 3rem;"></i>
+                        </div>
+                        <h4 class="book-title">Photography 101</h4>
+                        <p class="book-meta">Photography • 2024</p>
+                    </a>
+
+                    <!-- Book 7 -->
+                    <a href="ebook.html" class="book-card">
+                        <div class="book-cover" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);">
+                            <i class="fas fa-pen-nib" style="color: #666; font-size: 3rem;"></i>
+                        </div>
+                        <h4 class="book-title">Writing Mastery</h4>
+                        <p class="book-meta">Writing • 2024</p>
+                    </a>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- ==================== SIDEBAR ==================== -->
+        <aside class="sidebar">
+
+            <!-- Recent Posts Widget -->
+            <div class="sidebar-widget">
+                <h3 class="sidebar-widget-title">
+                    <i class="fas fa-clock"></i>
+                    Son Yazılar
+                </h3>
+                <ul class="sidebar-list">
+                    <li>
+                        <a href="post.html">
+                            <img src="https://via.placeholder.com/60x60/7B61FF/ffffff?text=1" alt="Post" class="sidebar-thumbnail">
+                            <div class="sidebar-item-content">
+                                <div class="sidebar-item-title">10 Best AI Tools for Designers</div>
+                                <div class="sidebar-item-meta">2 gün önce</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="post.html">
+                            <img src="https://via.placeholder.com/60x60/A67AF9/ffffff?text=2" alt="Post" class="sidebar-thumbnail">
+                            <div class="sidebar-item-content">
+                                <div class="sidebar-item-title">Web Development Trends 2024</div>
+                                <div class="sidebar-item-meta">4 gün önce</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="post.html">
+                            <img src="https://via.placeholder.com/60x60/F3E7FF/7B61FF?text=3" alt="Post" class="sidebar-thumbnail">
+                            <div class="sidebar-item-content">
+                                <div class="sidebar-item-title">CSS Grid vs Flexbox Guide</div>
+                                <div class="sidebar-item-meta">1 hafta önce</div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Popular Sites Widget -->
+            <div class="sidebar-widget">
+                <h3 class="sidebar-widget-title">
+                    <i class="fas fa-fire"></i>
+                    Popüler Siteler
+                </h3>
+                <ul class="sidebar-list">
+                    <li>
+                        <a href="#">
+                            <div class="sidebar-item-content">
+                                <div class="sidebar-item-title">GitHub</div>
+                                <div class="sidebar-item-meta"><i class="fas fa-eye"></i> 12.5K views</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <div class="sidebar-item-content">
+                                <div class="sidebar-item-title">ChatGPT</div>
+                                <div class="sidebar-item-meta"><i class="fas fa-eye"></i> 32.1K views</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <div class="sidebar-item-content">
+                                <div class="sidebar-item-title">YouTube</div>
+                                <div class="sidebar-item-meta"><i class="fas fa-eye"></i> 25.7K views</div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Tag Cloud Widget -->
+            <div class="sidebar-widget">
+                <h3 class="sidebar-widget-title">
+                    <i class="fas fa-tags"></i>
+                    Etiket Bulutu
+                </h3>
+                <div class="tag-cloud">
+                    <span class="tag-cloud-item">AI</span>
+                    <span class="tag-cloud-item">Design</span>
+                    <span class="tag-cloud-item">Code</span>
+                    <span class="tag-cloud-item">Development</span>
+                    <span class="tag-cloud-item">Marketing</span>
+                    <span class="tag-cloud-item">Business</span>
+                    <span class="tag-cloud-item">Photography</span>
+                    <span class="tag-cloud-item">Music</span>
+                    <span class="tag-cloud-item">Video</span>
+                    <span class="tag-cloud-item">Cloud</span>
+                </div>
+            </div>
+
+            <!-- Stats Widget -->
+            <div class="sidebar-widget">
+                <h3 class="sidebar-widget-title">
+                    <i class="fas fa-chart-bar"></i>
+                    Site İstatistikleri
+                </h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-number">1,234</span>
+                        <span class="stat-label">Siteler</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">456</span>
+                        <span class="stat-label">Makaleler</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">89K</span>
+                        <span class="stat-label">Ziyaretçi</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">245</span>
+                        <span class="stat-label">E-Kitap</span>
+                    </div>
+                </div>
+            </div>
+
+        </aside>
+    </div>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="footer">
+        <div class="footer-container">
+            <nav class="footer-nav">
+                <a href="#">About</a>
+                <a href="#">Contact</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Blog</a>
+                <a href="#">FAQ</a>
+            </nav>
+            <p class="footer-copyright">
+                &copy; 2024 OneNav. All rights reserved. Built with <i class="fas fa-heart" style="color: #ff4757;"></i>
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+
+</body>
+</html>
