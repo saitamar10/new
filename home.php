@@ -14,7 +14,7 @@ get_header();
          ============================================ -->
     <div class="section">
         <div class="section-title">
-            <h2>⭐ Popüler Siteler</h2>
+            <h2><i class="fas fa-star"></i> <?php echo esc_html(onenav_get_option('popular_sites_title', 'Popüler Siteler')); ?></h2>
             <a href="<?php echo home_url('/site-category/'); ?>" class="view-all">Tümünü Gör →</a>
         </div>
         <div class="sites-grid">
@@ -60,7 +60,7 @@ get_header();
          ============================================ -->
     <div class="section">
         <div class="section-title">
-            <h2>📰 Güncel Haberler</h2>
+            <h2><i class="fas fa-newspaper"></i> Güncel Haberler</h2>
             <a href="<?php echo home_url('/news/'); ?>" class="view-all">Tümünü Gör →</a>
         </div>
         <div class="news-grid">
@@ -104,7 +104,7 @@ get_header();
          ============================================ -->
     <div class="section">
         <div class="section-title">
-            <h2>📱 Mobil Uygulamalar</h2>
+            <h2><i class="fas fa-mobile-alt"></i> Mobil Uygulamalar</h2>
             <a href="<?php echo home_url('/app/'); ?>" class="view-all">Tümünü Gör →</a>
         </div>
         <div class="apps-grid">
@@ -152,7 +152,7 @@ get_header();
          ============================================ -->
     <div class="section">
         <div class="section-title">
-            <h2>📚 E-Kitaplar & Rehberler</h2>
+            <h2><i class="fas fa-book"></i> <?php echo esc_html(onenav_get_option('ebook_section_title', 'E-Kitaplar & Dergiler')); ?></h2>
             <a href="<?php echo home_url('/ebook/'); ?>" class="view-all">Tümünü Gör →</a>
         </div>
         <div class="apps-grid">
@@ -198,7 +198,7 @@ get_header();
          ============================================ -->
     <div class="section">
         <div class="section-title">
-            <h2>🤖 Yapay Zeka Araçları</h2>
+            <h2><i class="fas fa-robot"></i> Yapay Zeka Araçları</h2>
             <a href="<?php echo home_url('/ai-tool/'); ?>" class="view-all">Tümünü Gör →</a>
         </div>
         <div class="sites-grid">
@@ -249,7 +249,7 @@ get_header();
          ============================================ -->
     <div class="section">
         <div class="section-title">
-            <h2>🖼️ Foto Galeriler</h2>
+            <h2><i class="fas fa-images"></i> Foto Galeriler</h2>
             <a href="<?php echo home_url('/gallery/'); ?>" class="view-all">Tümünü Gör →</a>
         </div>
         <div class="gallery-grid">
