@@ -90,19 +90,28 @@ function onenav_render_theme_options_page() {
 
         <h2 class="nav-tab-wrapper">
             <a href="?page=onenav-theme-settings&tab=general" class="nav-tab <?php echo $active_tab == 'general' ? 'nav-tab-active' : ''; ?>">
-                <?php esc_html_e('Genel Ayarlar', 'onenav'); ?>
+                <?php esc_html_e('Genel', 'onenav-pro'); ?>
             </a>
             <a href="?page=onenav-theme-settings&tab=homepage" class="nav-tab <?php echo $active_tab == 'homepage' ? 'nav-tab-active' : ''; ?>">
-                <?php esc_html_e('Anasayfa', 'onenav'); ?>
+                <?php esc_html_e('Anasayfa', 'onenav-pro'); ?>
             </a>
             <a href="?page=onenav-theme-settings&tab=posts" class="nav-tab <?php echo $active_tab == 'posts' ? 'nav-tab-active' : ''; ?>">
-                <?php esc_html_e('Yazılar', 'onenav'); ?>
+                <?php esc_html_e('Yazılar', 'onenav-pro'); ?>
             </a>
-            <a href="?page=onenav-theme-settings&tab=ai_tools" class="nav-tab <?php echo $active_tab == 'ai_tools' ? 'nav-tab-active' : ''; ?>">
-                <?php esc_html_e('AI Araçları', 'onenav'); ?>
+            <a href="?page=onenav-theme-settings&tab=tools" class="nav-tab <?php echo $active_tab == 'tools' ? 'nav-tab-active' : ''; ?>">
+                <?php esc_html_e('Araçlar & Kaynaklar', 'onenav-pro'); ?>
+            </a>
+            <a href="?page=onenav-theme-settings&tab=ebook" class="nav-tab <?php echo $active_tab == 'ebook' ? 'nav-tab-active' : ''; ?>">
+                <?php esc_html_e('E-Kitap', 'onenav-pro'); ?>
+            </a>
+            <a href="?page=onenav-theme-settings&tab=search" class="nav-tab <?php echo $active_tab == 'search' ? 'nav-tab-active' : ''; ?>">
+                <?php esc_html_e('Arama', 'onenav-pro'); ?>
             </a>
             <a href="?page=onenav-theme-settings&tab=appearance" class="nav-tab <?php echo $active_tab == 'appearance' ? 'nav-tab-active' : ''; ?>">
-                <?php esc_html_e('Görünüm', 'onenav'); ?>
+                <?php esc_html_e('Görünüm', 'onenav-pro'); ?>
+            </a>
+            <a href="?page=onenav-theme-settings&tab=seo" class="nav-tab <?php echo $active_tab == 'seo' ? 'nav-tab-active' : ''; ?>">
+                <?php esc_html_e('SEO & Optimizasyon', 'onenav-pro'); ?>
             </a>
         </h2>
 
@@ -121,11 +130,20 @@ function onenav_render_theme_options_page() {
                     case 'posts':
                         onenav_render_posts_tab($options);
                         break;
-                    case 'ai_tools':
-                        onenav_render_ai_tools_tab($options);
+                    case 'tools':
+                        onenav_render_tools_tab($options);
+                        break;
+                    case 'ebook':
+                        onenav_render_ebook_tab($options);
+                        break;
+                    case 'search':
+                        onenav_render_search_tab($options);
                         break;
                     case 'appearance':
                         onenav_render_appearance_tab($options);
+                        break;
+                    case 'seo':
+                        onenav_render_seo_tab($options);
                         break;
                     default:
                         onenav_render_general_tab($options);
@@ -396,10 +414,10 @@ function onenav_render_posts_tab($options) {
 }
 
 // ============================================
-// TAB: AI TOOLS SETTINGS
+// TAB: TOOLS & RESOURCES SETTINGS
 // ============================================
 
-function onenav_render_ai_tools_tab($options) {
+function onenav_render_tools_tab($options) {
     $filter_titles = isset($options['ai_filter_titles']) ? $options['ai_filter_titles'] : 'Tümü,Metin,Görsel,Video,Kod,Müzik';
     $max_columns = isset($options['ai_max_columns']) ? $options['ai_max_columns'] : 4;
     $load_more_text = isset($options['ai_load_more_text']) ? $options['ai_load_more_text'] : 'Daha Fazla Yükle';
@@ -443,6 +461,86 @@ function onenav_render_ai_tools_tab($options) {
 }
 
 // ============================================
+// TAB: E-BOOK SETTINGS
+// ============================================
+
+function onenav_render_ebook_tab($options) {
+    $buy_button = isset($options['ebook_buy_button_text']) ? $options['ebook_buy_button_text'] : 'Satın Al';
+    $download_button = isset($options['ebook_download_button_text']) ? $options['ebook_download_button_text'] : 'İndir';
+    $related_books_title = isset($options['ebook_related_title']) ? $options['ebook_related_title'] : 'Benzer Kitaplar';
+    ?>
+
+    <div class="settings-section">
+        <h2><?php esc_html_e('Buton Metinleri', 'onenav-pro'); ?></h2>
+        <table class="form-table">
+            <tr>
+                <th scope="row"><?php esc_html_e('Satın Al Butonu', 'onenav-pro'); ?></th>
+                <td>
+                    <input type="text" name="onenav_options[ebook_buy_button_text]" value="<?php echo esc_attr($buy_button); ?>" class="regular-text">
+                </td>
+            </tr>
+            <tr>
+                <th scope="row"><?php esc_html_e('İndir Butonu', 'onenav-pro'); ?></th>
+                <td>
+                    <input type="text" name="onenav_options[ebook_download_button_text]" value="<?php echo esc_attr($download_button); ?>" class="regular-text">
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="settings-section">
+        <h2><?php esc_html_e('İlgili Kitaplar', 'onenav-pro'); ?></h2>
+        <table class="form-table">
+            <tr>
+                <th scope="row"><?php esc_html_e('Başlık', 'onenav-pro'); ?></th>
+                <td>
+                    <input type="text" name="onenav_options[ebook_related_title]" value="<?php echo esc_attr($related_books_title); ?>" class="regular-text">
+                </td>
+            </tr>
+        </table>
+    </div>
+    <?php
+}
+
+// ============================================
+// TAB: SEARCH SETTINGS
+// ============================================
+
+function onenav_render_search_tab($options) {
+    $default_tab = isset($options['search_default_tab']) ? $options['search_default_tab'] : 'site';
+    $login_required = isset($options['search_login_required']) ? $options['search_login_required'] : 0;
+    ?>
+
+    <div class="settings-section">
+        <h2><?php esc_html_e('Arama Ayarları', 'onenav-pro'); ?></h2>
+        <table class="form-table">
+            <tr>
+                <th scope="row"><?php esc_html_e('Varsayılan Arama Sekmesi', 'onenav-pro'); ?></th>
+                <td>
+                    <select name="onenav_options[search_default_tab]">
+                        <option value="site" <?php selected($default_tab, 'site'); ?>><?php esc_html_e('Site', 'onenav-pro'); ?></option>
+                        <option value="google" <?php selected($default_tab, 'google'); ?>><?php esc_html_e('Google', 'onenav-pro'); ?></option>
+                        <option value="bing" <?php selected($default_tab, 'bing'); ?>><?php esc_html_e('Bing', 'onenav-pro'); ?></option>
+                        <option value="baidu" <?php selected($default_tab, 'baidu'); ?>><?php esc_html_e('Baidu', 'onenav-pro'); ?></option>
+                    </select>
+                    <p class="description"><?php esc_html_e('Arama sayfasında varsayılan olarak aktif olacak sekme', 'onenav-pro'); ?></p>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row"><?php esc_html_e('Yerel Arama', 'onenav-pro'); ?></th>
+                <td>
+                    <label>
+                        <input type="checkbox" name="onenav_options[search_login_required]" value="1" <?php checked($login_required, 1); ?>>
+                        <?php esc_html_e('Sadece giriş yapmış kullanıcılar yerel arama yapabilir', 'onenav-pro'); ?>
+                    </label>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <?php
+}
+
+// ============================================
 // TAB: APPEARANCE SETTINGS
 // ============================================
 
@@ -454,19 +552,19 @@ function onenav_render_appearance_tab($options) {
     ?>
 
     <div class="settings-section">
-        <h2><?php esc_html_e('Dark Mode', 'onenav'); ?></h2>
+        <h2><?php esc_html_e('Dark Mode', 'onenav-pro'); ?></h2>
         <table class="form-table">
             <tr>
-                <th scope="row"><?php esc_html_e('Dark Mode Aktif', 'onenav'); ?></th>
+                <th scope="row"><?php esc_html_e('Dark Mode Aktif', 'onenav-pro'); ?></th>
                 <td>
                     <label>
                         <input type="checkbox" name="onenav_options[enable_dark_mode]" value="1" <?php checked($enable_dark, 1); ?>>
-                        <?php esc_html_e('Dark mode özelliğini etkinleştir', 'onenav'); ?>
+                        <?php esc_html_e('Dark mode özelliğini etkinleştir', 'onenav-pro'); ?>
                     </label>
                 </td>
             </tr>
             <tr>
-                <th scope="row"><?php esc_html_e('Dark Mode Arka Plan Rengi', 'onenav'); ?></th>
+                <th scope="row"><?php esc_html_e('Dark Mode Arka Plan Rengi', 'onenav-pro'); ?></th>
                 <td>
                     <div class="color-picker-wrapper">
                         <input type="text" name="onenav_options[dark_bg_color]" value="<?php echo esc_attr($dark_bg); ?>" class="color-picker" data-default-color="#0f172a">
@@ -475,7 +573,7 @@ function onenav_render_appearance_tab($options) {
                 </td>
             </tr>
             <tr>
-                <th scope="row"><?php esc_html_e('Dark Mode Metin Rengi', 'onenav'); ?></th>
+                <th scope="row"><?php esc_html_e('Dark Mode Metin Rengi', 'onenav-pro'); ?></th>
                 <td>
                     <div class="color-picker-wrapper">
                         <input type="text" name="onenav_options[dark_text_color]" value="<?php echo esc_attr($dark_text); ?>" class="color-picker" data-default-color="#e2e8f0">
@@ -487,15 +585,96 @@ function onenav_render_appearance_tab($options) {
     </div>
 
     <div class="settings-section">
-        <h2><?php esc_html_e('Dil Ayarları', 'onenav'); ?></h2>
+        <h2><?php esc_html_e('Dil Ayarları', 'onenav-pro'); ?></h2>
         <table class="form-table">
             <tr>
-                <th scope="row"><?php esc_html_e('Arayüz Dili', 'onenav'); ?></th>
+                <th scope="row"><?php esc_html_e('Arayüz Dili', 'onenav-pro'); ?></th>
                 <td>
                     <select name="onenav_options[site_language]">
-                        <option value="tr" <?php selected($language, 'tr'); ?>><?php esc_html_e('Türkçe', 'onenav'); ?></option>
-                        <option value="en" <?php selected($language, 'en'); ?>><?php esc_html_e('İngilizce', 'onenav'); ?></option>
+                        <option value="tr" <?php selected($language, 'tr'); ?>><?php esc_html_e('Türkçe', 'onenav-pro'); ?></option>
+                        <option value="en" <?php selected($language, 'en'); ?>><?php esc_html_e('İngilizce', 'onenav-pro'); ?></option>
                     </select>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <?php
+}
+
+// ============================================
+// TAB: SEO & OPTIMIZATION SETTINGS
+// ============================================
+
+function onenav_render_seo_tab($options) {
+    $title_pattern = isset($options['seo_title_pattern']) ? $options['seo_title_pattern'] : '%title% | %sitename%';
+    $desc_pattern = isset($options['seo_desc_pattern']) ? $options['seo_desc_pattern'] : '%excerpt%';
+    $noindex_cpts = isset($options['seo_noindex_cpts']) ? $options['seo_noindex_cpts'] : array();
+    $dequeue_emojis = isset($options['perf_dequeue_emojis']) ? $options['perf_dequeue_emojis'] : 0;
+    $dequeue_embeds = isset($options['perf_dequeue_embeds']) ? $options['perf_dequeue_embeds'] : 0;
+    $cleanup_images = isset($options['perf_cleanup_images']) ? $options['perf_cleanup_images'] : 0;
+    ?>
+
+    <div class="settings-section">
+        <h2><?php esc_html_e('SEO Ayarları', 'onenav-pro'); ?></h2>
+        <table class="form-table">
+            <tr>
+                <th scope="row"><?php esc_html_e('Sayfa Başlığı Kalıbı', 'onenav-pro'); ?></th>
+                <td>
+                    <input type="text" name="onenav_options[seo_title_pattern]" value="<?php echo esc_attr($title_pattern); ?>" class="large-text">
+                    <p class="description"><?php esc_html_e('Kullanılabilir değişkenler: %title%, %sitename%, %sep%', 'onenav-pro'); ?></p>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row"><?php esc_html_e('Meta Açıklama Kalıbı', 'onenav-pro'); ?></th>
+                <td>
+                    <input type="text" name="onenav_options[seo_desc_pattern]" value="<?php echo esc_attr($desc_pattern); ?>" class="large-text">
+                    <p class="description"><?php esc_html_e('Kullanılabilir değişkenler: %excerpt%, %title%', 'onenav-pro'); ?></p>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row"><?php esc_html_e('Noindex CPTs', 'onenav-pro'); ?></th>
+                <td>
+                    <?php
+                    $cpts = array('site', 'resource', 'ebook', 'video', 'ai_tool');
+                    foreach ($cpts as $cpt) {
+                        $checked = in_array($cpt, (array) $noindex_cpts) ? 'checked' : '';
+                        echo '<label><input type="checkbox" name="onenav_options[seo_noindex_cpts][]" value="' . esc_attr($cpt) . '" ' . $checked . '> ' . esc_html(ucfirst($cpt)) . '</label><br>';
+                    }
+                    ?>
+                    <p class="description"><?php esc_html_e('İşaretli CPT\'ler arama motorlarında indexlenmeyecek', 'onenav-pro'); ?></p>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="settings-section">
+        <h2><?php esc_html_e('Performans Optimizasyonu', 'onenav-pro'); ?></h2>
+        <table class="form-table">
+            <tr>
+                <th scope="row"><?php esc_html_e('Emoji Desteğini Kaldır', 'onenav-pro'); ?></th>
+                <td>
+                    <label>
+                        <input type="checkbox" name="onenav_options[perf_dequeue_emojis]" value="1" <?php checked($dequeue_emojis, 1); ?>>
+                        <?php esc_html_e('Emoji scriptlerini devre dışı bırak', 'onenav-pro'); ?>
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row"><?php esc_html_e('Embed Desteğini Kaldır', 'onenav-pro'); ?></th>
+                <td>
+                    <label>
+                        <input type="checkbox" name="onenav_options[perf_dequeue_embeds]" value="1" <?php checked($dequeue_embeds, 1); ?>>
+                        <?php esc_html_e('Embed scriptlerini devre dışı bırak', 'onenav-pro'); ?>
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row"><?php esc_html_e('Görsel Boyutlarını Temizle', 'onenav-pro'); ?></th>
+                <td>
+                    <label>
+                        <input type="checkbox" name="onenav_options[perf_cleanup_images]" value="1" <?php checked($cleanup_images, 1); ?>>
+                        <?php esc_html_e('Kullanılmayan görsel boyutlarını temizle', 'onenav-pro'); ?>
+                    </label>
                 </td>
             </tr>
         </table>

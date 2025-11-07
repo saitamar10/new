@@ -27,6 +27,17 @@ require_once ONENAV_DIR . '/includes/api-endpoints.php';
 require_once ONENAV_DIR . '/includes/trend-sync.php';
 require_once ONENAV_DIR . '/includes/theme-options.php';
 
+// Include helpers and widgets
+require_once ONENAV_DIR . '/inc/helpers.php';
+require_once ONENAV_DIR . '/inc/widgets/widget-popular-sites.php';
+require_once ONENAV_DIR . '/inc/widgets/widget-stats.php';
+
+// Include TGMPA if exists
+if (file_exists(ONENAV_DIR . '/inc/class-tgm-plugin-activation.php')) {
+    require_once ONENAV_DIR . '/inc/class-tgm-plugin-activation.php';
+    require_once ONENAV_DIR . '/inc/tgmpa-config.php';
+}
+
 // ============================================
 // THEME SETUP
 // ============================================

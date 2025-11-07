@@ -382,3 +382,288 @@ function onenav_save_ai_tool_meta_box($post_id) {
     }
 }
 add_action('save_post_ai_tool', 'onenav_save_ai_tool_meta_box');
+
+// ============================================
+// REGISTER CUSTOM POST TYPE: RESOURCE
+// ============================================
+
+function onenav_register_resource_post_type() {
+    $labels = array(
+        'name' => esc_html__('Resources', 'onenav-pro'),
+        'singular_name' => esc_html__('Resource', 'onenav-pro'),
+        'add_new' => esc_html__('Add New', 'onenav-pro'),
+        'add_new_item' => esc_html__('Add New Resource', 'onenav-pro'),
+        'edit_item' => esc_html__('Edit Resource', 'onenav-pro'),
+        'view_item' => esc_html__('View Resource', 'onenav-pro'),
+        'search_items' => esc_html__('Search Resources', 'onenav-pro'),
+    );
+
+    $args = array(
+        'label' => esc_html__('Resources', 'onenav-pro'),
+        'labels' => $labels,
+        'public' => true,
+        'show_ui' => true,
+        'show_in_rest' => true,
+        'has_archive' => true,
+        'rewrite' => array('slug' => 'resource'),
+        'supports' => array('title', 'editor', 'thumbnail', 'excerpt'),
+        'menu_icon' => 'dashicons-download',
+    );
+
+    register_post_type('resource', $args);
+}
+add_action('init', 'onenav_register_resource_post_type');
+
+// Resource Categories
+function onenav_register_resource_category_taxonomy() {
+    $labels = array(
+        'name' => esc_html__('Resource Categories', 'onenav-pro'),
+        'singular_name' => esc_html__('Resource Category', 'onenav-pro'),
+    );
+
+    $args = array(
+        'labels' => $labels,
+        'public' => true,
+        'show_ui' => true,
+        'show_in_rest' => true,
+        'hierarchical' => true,
+        'rewrite' => array('slug' => 'resource-category'),
+    );
+
+    register_taxonomy('resource_category', array('resource'), $args);
+}
+add_action('init', 'onenav_register_resource_category_taxonomy');
+
+// ============================================
+// REGISTER CUSTOM POST TYPE: VIDEO
+// ============================================
+
+function onenav_register_video_post_type() {
+    $labels = array(
+        'name' => esc_html__('Videos', 'onenav-pro'),
+        'singular_name' => esc_html__('Video', 'onenav-pro'),
+        'add_new' => esc_html__('Add New', 'onenav-pro'),
+        'add_new_item' => esc_html__('Add New Video', 'onenav-pro'),
+        'edit_item' => esc_html__('Edit Video', 'onenav-pro'),
+        'view_item' => esc_html__('View Video', 'onenav-pro'),
+        'search_items' => esc_html__('Search Videos', 'onenav-pro'),
+    );
+
+    $args = array(
+        'label' => esc_html__('Videos', 'onenav-pro'),
+        'labels' => $labels,
+        'public' => true,
+        'show_ui' => true,
+        'show_in_rest' => true,
+        'has_archive' => true,
+        'rewrite' => array('slug' => 'video'),
+        'supports' => array('title', 'editor', 'thumbnail', 'excerpt'),
+        'menu_icon' => 'dashicons-video-alt3',
+    );
+
+    register_post_type('video', $args);
+}
+add_action('init', 'onenav_register_video_post_type');
+
+// Video Categories
+function onenav_register_video_category_taxonomy() {
+    $labels = array(
+        'name' => esc_html__('Video Categories', 'onenav-pro'),
+        'singular_name' => esc_html__('Video Category', 'onenav-pro'),
+    );
+
+    $args = array(
+        'labels' => $labels,
+        'public' => true,
+        'show_ui' => true,
+        'show_in_rest' => true,
+        'hierarchical' => true,
+        'rewrite' => array('slug' => 'video-category'),
+    );
+
+    register_taxonomy('video_category', array('video'), $args);
+}
+add_action('init', 'onenav_register_video_category_taxonomy');
+
+// ============================================
+// TOOL CATEGORY TAXONOMY (for sites/tools)
+// ============================================
+
+function onenav_register_tool_cat_taxonomy() {
+    $labels = array(
+        'name' => esc_html__('Tool Categories', 'onenav-pro'),
+        'singular_name' => esc_html__('Tool Category', 'onenav-pro'),
+        'add_new_item' => esc_html__('Add New Category', 'onenav-pro'),
+    );
+
+    $args = array(
+        'labels' => $labels,
+        'public' => true,
+        'show_ui' => true,
+        'show_in_rest' => true,
+        'hierarchical' => true,
+        'rewrite' => array('slug' => 'tool-cat'),
+    );
+
+    register_taxonomy('tool_cat', array('site', 'ai_tool'), $args);
+}
+add_action('init', 'onenav_register_tool_cat_taxonomy');
+
+// ============================================
+// RESOURCE META BOXES
+// ============================================
+
+function onenav_add_resource_meta_boxes() {
+    add_meta_box(
+        'resource_details',
+        esc_html__('Resource Details', 'onenav-pro'),
+        'onenav_render_resource_details_meta_box',
+        'resource',
+        'normal',
+        'high'
+    );
+}
+add_action('add_meta_boxes', 'onenav_add_resource_meta_boxes');
+
+function onenav_render_resource_details_meta_box($post) {
+    wp_nonce_field('onenav_resource_details_nonce', 'onenav_resource_details_nonce');
+    $external_url = get_post_meta($post->ID, 'external_url', true);
+    $pdf_url = get_post_meta($post->ID, 'pdf_url', true);
+    $price = get_post_meta($post->ID, 'price', true);
+    ?>
+    <div style="margin-bottom: 15px;">
+        <label style="display: block; margin-bottom: 5px; font-weight: bold;">External URL</label>
+        <input type="url" name="external_url" value="<?php echo esc_url($external_url); ?>" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+    </div>
+    <div style="margin-bottom: 15px;">
+        <label style="display: block; margin-bottom: 5px; font-weight: bold;">PDF URL</label>
+        <input type="url" name="pdf_url" value="<?php echo esc_url($pdf_url); ?>" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+    </div>
+    <div style="margin-bottom: 15px;">
+        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Price</label>
+        <input type="text" name="price" value="<?php echo esc_attr($price); ?>" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+    </div>
+    <?php
+}
+
+function onenav_save_resource_meta_box($post_id) {
+    if (!isset($_POST['onenav_resource_details_nonce']) || !wp_verify_nonce($_POST['onenav_resource_details_nonce'], 'onenav_resource_details_nonce')) {
+        return;
+    }
+    if (isset($_POST['external_url'])) {
+        update_post_meta($post_id, 'external_url', esc_url_raw($_POST['external_url']));
+    }
+    if (isset($_POST['pdf_url'])) {
+        update_post_meta($post_id, 'pdf_url', esc_url_raw($_POST['pdf_url']));
+    }
+    if (isset($_POST['price'])) {
+        update_post_meta($post_id, 'price', sanitize_text_field($_POST['price']));
+    }
+}
+add_action('save_post_resource', 'onenav_save_resource_meta_box');
+
+// ============================================
+// VIDEO META BOXES
+// ============================================
+
+function onenav_add_video_meta_boxes() {
+    add_meta_box(
+        'video_details',
+        esc_html__('Video Details', 'onenav-pro'),
+        'onenav_render_video_details_meta_box',
+        'video',
+        'normal',
+        'high'
+    );
+}
+add_action('add_meta_boxes', 'onenav_add_video_meta_boxes');
+
+function onenav_render_video_details_meta_box($post) {
+    wp_nonce_field('onenav_video_details_nonce', 'onenav_video_details_nonce');
+    $external_url = get_post_meta($post->ID, 'external_url', true);
+    $video_url = get_post_meta($post->ID, 'video_url', true);
+    $duration = get_post_meta($post->ID, 'duration', true);
+    ?>
+    <div style="margin-bottom: 15px;">
+        <label style="display: block; margin-bottom: 5px; font-weight: bold;">External URL</label>
+        <input type="url" name="external_url" value="<?php echo esc_url($external_url); ?>" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+    </div>
+    <div style="margin-bottom: 15px;">
+        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Video URL</label>
+        <input type="url" name="video_url" value="<?php echo esc_url($video_url); ?>" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+    </div>
+    <div style="margin-bottom: 15px;">
+        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Duration (e.g., 12:34)</label>
+        <input type="text" name="duration" value="<?php echo esc_attr($duration); ?>" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+    </div>
+    <?php
+}
+
+function onenav_save_video_meta_box($post_id) {
+    if (!isset($_POST['onenav_video_details_nonce']) || !wp_verify_nonce($_POST['onenav_video_details_nonce'], 'onenav_video_details_nonce')) {
+        return;
+    }
+    if (isset($_POST['external_url'])) {
+        update_post_meta($post_id, 'external_url', esc_url_raw($_POST['external_url']));
+    }
+    if (isset($_POST['video_url'])) {
+        update_post_meta($post_id, 'video_url', esc_url_raw($_POST['video_url']));
+    }
+    if (isset($_POST['duration'])) {
+        update_post_meta($post_id, 'duration', sanitize_text_field($_POST['duration']));
+    }
+}
+add_action('save_post_video', 'onenav_save_video_meta_box');
+
+// ============================================
+// EBOOK EXTENDED META (ISBN, Cover, etc.)
+// ============================================
+
+function onenav_add_ebook_extended_meta_boxes() {
+    add_meta_box(
+        'ebook_extended',
+        esc_html__('Extended Book Info', 'onenav-pro'),
+        'onenav_render_ebook_extended_meta_box',
+        'ebook',
+        'normal',
+        'default'
+    );
+}
+add_action('add_meta_boxes', 'onenav_add_ebook_extended_meta_boxes');
+
+function onenav_render_ebook_extended_meta_box($post) {
+    wp_nonce_field('onenav_ebook_extended_nonce', 'onenav_ebook_extended_nonce');
+    $isbn = get_post_meta($post->ID, 'isbn', true);
+    $cover = get_post_meta($post->ID, 'cover', true);
+    $price = get_post_meta($post->ID, 'price', true);
+    ?>
+    <div style="margin-bottom: 15px;">
+        <label style="display: block; margin-bottom: 5px; font-weight: bold;">ISBN</label>
+        <input type="text" name="isbn" value="<?php echo esc_attr($isbn); ?>" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+    </div>
+    <div style="margin-bottom: 15px;">
+        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Cover Image URL</label>
+        <input type="url" name="cover" value="<?php echo esc_url($cover); ?>" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+    </div>
+    <div style="margin-bottom: 15px;">
+        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Price</label>
+        <input type="text" name="price" value="<?php echo esc_attr($price); ?>" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+    </div>
+    <?php
+}
+
+function onenav_save_ebook_extended_meta_box($post_id) {
+    if (!isset($_POST['onenav_ebook_extended_nonce']) || !wp_verify_nonce($_POST['onenav_ebook_extended_nonce'], 'onenav_ebook_extended_nonce')) {
+        return;
+    }
+    if (isset($_POST['isbn'])) {
+        update_post_meta($post_id, 'isbn', sanitize_text_field($_POST['isbn']));
+    }
+    if (isset($_POST['cover'])) {
+        update_post_meta($post_id, 'cover', esc_url_raw($_POST['cover']));
+    }
+    if (isset($_POST['price'])) {
+        update_post_meta($post_id, 'price', sanitize_text_field($_POST['price']));
+    }
+}
+add_action('save_post_ebook', 'onenav_save_ebook_extended_meta_box');
