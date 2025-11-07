@@ -363,24 +363,10 @@ function onenav_truncate_text($text, $length = 100, $suffix = '...') {
 }
 
 // ============================================
-// GET THEME OPTION HELPER
-// ============================================
-
-/**
- * Get theme option value
- *
- * @param string $key Option key
- * @param mixed $default Default value
- * @return mixed Option value
- */
-function onenav_get_option($key, $default = '') {
-    $options = get_option('onenav_options', array());
-    return isset($options[$key]) ? $options[$key] : $default;
-}
-
-// ============================================
 // SCHEMA MARKUP
 // ============================================
+
+// Note: onenav_get_option() is defined in includes/theme-options.php
 
 /**
  * Generate schema markup for posts
