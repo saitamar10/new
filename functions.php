@@ -509,24 +509,7 @@ function onenav_breadcrumbs() {
 // ============================================
 // POST VIEWS TRACKING
 // ============================================
-
-function onenav_set_post_views($postID) {
-    $count = (int) get_post_meta($postID, '_views', true);
-    $count++;
-    update_post_meta($postID, '_views', $count);
-}
-
-function onenav_get_post_views($postID) {
-    $count = (int) get_post_meta($postID, '_views', true);
-    return $count ? $count . ' görüntüleme' : '0 görüntüleme';
-}
-
-// Track post views on single posts
-add_action('wp', function() {
-    if (is_single()) {
-        onenav_set_post_views(get_the_ID());
-    }
-});
+// Note: Post views tracking functions are defined in inc/helpers.php
 
 // ============================================
 // LIKE BUTTON (AJAX)
