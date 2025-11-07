@@ -135,17 +135,7 @@ get_header();
 
             <!-- Pagination -->
             <?php if (have_posts()): ?>
-                <nav class="archive-pagination">
-                    <?php
-                    echo paginate_links(array(
-                        'prev_text' => '<svg width="16" height="16" fill="currentColor"><path d="M15 8H1m7-7l-7 7 7 7"/></svg> ' . __('Önceki', 'onenav'),
-                        'next_text' => __('Sonraki', 'onenav') . ' <svg width="16" height="16" fill="currentColor"><path d="M1 8h14M8 1l7 7-7 7"/></svg>',
-                        'type' => 'list',
-                        'end_size' => 2,
-                        'mid_size' => 2,
-                    ));
-                    ?>
-                </nav>
+                <?php onenav_numeric_pagination(); ?>
             <?php endif; ?>
         </div>
 

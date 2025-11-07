@@ -1,7 +1,7 @@
 <?php
 /**
  * OneNav Theme Functions
- * 
+ *
  * @package OneNav
  * @since 1.0.0
  */
@@ -9,6 +9,11 @@
 // Prevent direct access
 if (!defined('ABSPATH')) {
     exit;
+}
+
+// Output buffering safeguard (safety measure)
+if (ob_get_level() === 0) {
+    ob_start();
 }
 
 // Theme constants
@@ -350,7 +355,8 @@ function onenav_security_headers() {
     header('X-Frame-Options: SAMEORIGIN');
     header('X-XSS-Protection: 1; mode=block');
 }
-add_action('wp_head', 'onenav_security_headers');
+// Use send_headers hook instead of wp_head to avoid "headers already sent" warnings
+add_action('send_headers', 'onenav_security_headers');
 
 // ============================================
 // PERFORMANCE OPTIMIZATION
@@ -449,3 +455,110 @@ function onenav_export_sites() {
     wp_reset_postdata();
     return $export_data;
 }
+
+// ============================================
+// NUMERIC PAGINATION
+// ============================================
+
+function onenav_numeric_pagination($query = null) {
+    global $wp_query;
+    $q = $query ?: $wp_query;
+    $big = 999999999;
+    $links = paginate_links(array(
+        'base'      => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
+        'format'    => '?paged=%#%',
+        'current'   => max(1, get_query_var('paged')),
+        'total'     => $q->max_num_pages,
+        'type'      => 'array',
+        'prev_text' => '«',
+        'next_text' => '»',
+    ));
+    if (is_array($links)) {
+        echo '<nav class="pagination"><ul class="pagination__list">';
+        foreach ($links as $l) {
+            echo '<li class="pagination__item">' . $l . '</li>';
+        }
+        echo '</ul></nav>';
+    }
+}
+
+// ============================================
+// BREADCRUMBS
+// ============================================
+
+function onenav_breadcrumbs() {
+    if (is_front_page()) {
+        return;
+    }
+    echo '<a href="' . esc_url(home_url()) . '">Ana Sayfa</a> › ';
+    if (is_single()) {
+        $cats = get_the_category();
+        if ($cats) {
+            echo get_category_parents($cats[0], true, ' › ');
+        }
+        the_title();
+    } elseif (is_category()) {
+        single_cat_title();
+    } elseif (is_search()) {
+        echo 'Arama: ' . get_search_query();
+    } elseif (is_page()) {
+        the_title();
+    }
+}
+
+// ============================================
+// POST VIEWS TRACKING
+// ============================================
+
+function onenav_set_post_views($postID) {
+    $count = (int) get_post_meta($postID, '_views', true);
+    $count++;
+    update_post_meta($postID, '_views', $count);
+}
+
+function onenav_get_post_views($postID) {
+    $count = (int) get_post_meta($postID, '_views', true);
+    return $count ? $count . ' görüntüleme' : '0 görüntüleme';
+}
+
+// Track post views on single posts
+add_action('wp', function() {
+    if (is_single()) {
+        onenav_set_post_views(get_the_ID());
+    }
+});
+
+// ============================================
+// LIKE BUTTON (AJAX)
+// ============================================
+
+add_action('wp_ajax_onenav_like', 'onenav_like');
+add_action('wp_ajax_nopriv_onenav_like', 'onenav_like');
+
+function onenav_like() {
+    check_ajax_referer('onenav_like_nonce', 'nonce');
+    $pid = (int) ($_POST['post'] ?? 0);
+    $likes = (int) get_post_meta($pid, '_likes', true);
+    update_post_meta($pid, '_likes', ++$likes);
+    wp_send_json_success(array('likes' => $likes));
+}
+
+// Update existing localize script to include like nonce
+function onenav_enqueue_like_nonce() {
+    wp_localize_script('onenav-theme', 'ONENAV', array(
+        'ajax'  => admin_url('admin-ajax.php'),
+        'nonce' => wp_create_nonce('onenav_like_nonce')
+    ));
+}
+add_action('wp_enqueue_scripts', 'onenav_enqueue_like_nonce');
+
+// ============================================
+// OUTPUT BUFFER CLEANUP
+// ============================================
+
+// Flush output buffer at the end (if started)
+add_action('shutdown', function() {
+    if (ob_get_length()) {
+        @ob_end_flush();
+    }
+});
