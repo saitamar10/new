@@ -77,6 +77,7 @@ get_header();
                     $news_query->the_post();
                     ?>
                     <div class="news-card" data-post-id="<?php the_ID(); ?>">
+                        <a href="<?php echo get_permalink(); ?>" style="display: none;"></a>
                         <?php if (has_post_thumbnail()) { ?>
                             <img src="<?php the_post_thumbnail_url('onenav-news-featured'); ?>" alt="<?php the_title_attribute(); ?>" class="news-image">
                         <?php } else { ?>
@@ -122,6 +123,7 @@ get_header();
                     $price = get_post_meta(get_the_ID(), 'app_price', true);
                     ?>
                     <div class="app-card" data-post-id="<?php the_ID(); ?>">
+                        <a href="<?php echo get_permalink(); ?>" style="display: none;"></a>
                         <?php if (has_post_thumbnail()) { ?>
                             <img src="<?php the_post_thumbnail_url('onenav-app-icon'); ?>" alt="<?php the_title_attribute(); ?>" class="app-icon">
                         <?php } ?>
@@ -169,6 +171,7 @@ get_header();
                     $file_type = get_post_meta(get_the_ID(), 'ebook_type', true);
                     ?>
                     <div class="ebook-card" data-post-id="<?php the_ID(); ?>">
+                        <a href="<?php echo get_permalink(); ?>" style="display: none;"></a>
                         <div class="ebook-cover">
                             <?php if (has_post_thumbnail()) { ?>
                                 <img src="<?php the_post_thumbnail_url(); ?>" alt="<?php the_title_attribute(); ?>" style="width: 100%; height: 100%; object-fit: cover;">
@@ -264,6 +267,7 @@ get_header();
                     $gallery_query->the_post();
                     ?>
                     <div class="gallery-card" data-post-id="<?php the_ID(); ?>">
+                        <a href="<?php echo get_permalink(); ?>" style="display: none;"></a>
                         <?php if (has_post_thumbnail()) { ?>
                             <img src="<?php the_post_thumbnail_url('onenav-gallery'); ?>" alt="<?php the_title_attribute(); ?>" class="gallery-image">
                         <?php } else { ?>
