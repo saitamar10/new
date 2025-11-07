@@ -19,6 +19,7 @@
             this.setupClickTracking();
             this.setupCardInteractions();
             this.setupSearchTabs();
+            this.setupTableOfContents();
             console.log('OneNav Theme initialized');
         },
 
@@ -98,18 +99,18 @@
                 $('.single-post__like-btn[data-post-id="' + postId + '"]').addClass('liked');
             });
 
-            // Handle like button click
-            $(document).on('click', '.single-post__like-btn', function(e) {
+            // Handle like button click (both old and new styles)
+            $(document).on('click', '.single-post__like-btn, .like-btn', function(e) {
                 e.preventDefault();
                 const $btn = $(this);
-                const postId = $btn.data('post-id');
+                const postId = $btn.data('post-id') || $btn.data('post');
 
                 self.toggleLike($btn, postId);
             });
         },
 
         toggleLike: function($btn, postId) {
-            const $count = $btn.find('.single-post__like-count');
+            const $count = $btn.find('.single-post__like-count, .like-count');
             let currentCount = parseInt($count.text()) || 0;
             const isLiked = $btn.hasClass('liked');
 
@@ -124,19 +125,26 @@
                 this.addLikeToStorage(postId);
             }
 
-            // Send AJAX request to update server-side count
+            // Send AJAX request to update server-side count (support both endpoints)
+            const ajaxUrl = (typeof ONENAV !== 'undefined') ? ONENAV.ajax : onenavData.ajaxUrl;
+            const nonce = (typeof ONENAV !== 'undefined') ? ONENAV.nonce : onenavData.nonce;
+
             $.ajax({
                 type: 'POST',
-                url: onenavData.ajaxUrl,
+                url: ajaxUrl,
                 data: {
-                    action: 'onenav_toggle_like',
+                    action: $btn.hasClass('like-btn') ? 'onenav_like' : 'onenav_toggle_like',
                     post_id: postId,
-                    nonce: onenavData.nonce,
+                    post: postId,
+                    nonce: nonce,
                     is_liked: !isLiked
                 },
                 success: function(response) {
-                    if (response.success && response.data.count !== undefined) {
-                        $count.text(response.data.count);
+                    if (response.success) {
+                        const newCount = response.data.count || response.data.likes;
+                        if (newCount !== undefined) {
+                            $count.text(newCount);
+                        }
                     }
                 },
                 error: function() {
@@ -323,6 +331,38 @@
                     imageObserver.observe(img);
                 });
             }
+        },
+
+        /**
+         * Table of Contents - Auto build from headings
+         */
+        setupTableOfContents: function() {
+            const toc = document.querySelector('#toc');
+            const content = document.querySelector('.single__content');
+
+            if (!toc || !content) return;
+
+            const heads = content.querySelectorAll('h2, h3');
+            if (!heads.length) {
+                toc.style.display = 'none';
+                return;
+            }
+
+            const ul = document.createElement('ul');
+            heads.forEach((h, idx) => {
+                if (!h.id) {
+                    h.id = 'sect-' + (idx + 1);
+                }
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = '#' + h.id;
+                a.textContent = h.textContent;
+                li.appendChild(a);
+                ul.appendChild(li);
+            });
+
+            toc.innerHTML = '<strong>İçindekiler</strong>';
+            toc.appendChild(ul);
         },
 
         /**

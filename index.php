@@ -56,12 +56,7 @@ get_header();
             }
 
             // Pagination
-            echo '<div class="pagination">';
-            echo paginate_links(array(
-                'prev_text' => '&laquo; Previous',
-                'next_text' => 'Next &raquo;',
-            ));
-            echo '</div>';
+            onenav_numeric_pagination();
         } else {
             ?>
             <div class="no-posts">

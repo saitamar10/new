@@ -103,15 +103,7 @@ $can_search_local = !$login_required || is_user_logged_in();
                     ?>
                 </div>
 
-                <div class="pagination">
-                    <?php
-                    echo paginate_links(array(
-                        'prev_text' => '<i class="dashicons dashicons-arrow-left-alt2"></i> ' . esc_html__('Önceki', 'onenav-pro'),
-                        'next_text' => esc_html__('Sonraki', 'onenav-pro') . ' <i class="dashicons dashicons-arrow-right-alt2"></i>',
-                        'type' => 'list',
-                    ));
-                    ?>
-                </div>
+                <?php onenav_numeric_pagination(); ?>
             <?php else: ?>
                 <div class="search-results__no-results">
                     <div class="no-results__icon">
