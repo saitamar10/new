@@ -19,7 +19,10 @@
             this.setupClickTracking();
             this.setupCardInteractions();
             this.setupSearchTabs();
-            console.log('OneNav Theme initialized');
+            this.setupSmoothScroll();
+            this.setupLazyLoad();
+            this.setupBackToTop();
+            console.log('OneNav Pro Theme initialized');
         },
 
         /**
