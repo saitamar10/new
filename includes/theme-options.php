@@ -740,12 +740,3 @@ function onenav_theme_options_scripts($hook) {
     ");
 }
 add_action('admin_enqueue_scripts', 'onenav_theme_options_scripts');
-
-// ============================================
-// HELPER FUNCTION TO GET THEME OPTION
-// ============================================
-
-function onenav_get_option($key, $default = '') {
-    $options = get_option('onenav_options', array());
-    return isset($options[$key]) ? $options[$key] : $default;
-}
