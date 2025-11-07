@@ -25,6 +25,7 @@ require_once ONENAV_DIR . '/includes/post-types.php';
 require_once ONENAV_DIR . '/includes/customizer.php';
 require_once ONENAV_DIR . '/includes/api-endpoints.php';
 require_once ONENAV_DIR . '/includes/trend-sync.php';
+require_once ONENAV_DIR . '/includes/theme-options.php';
 
 // ============================================
 // THEME SETUP
@@ -64,12 +65,14 @@ add_action('after_setup_theme', 'onenav_theme_setup');
 function onenav_enqueue_assets() {
     // Style.css (theme stylesheet) otomatik yüklenir
     wp_enqueue_style('onenav-style', get_stylesheet_uri(), array(), ONENAV_VERSION);
-    wp_enqueue_style('onenav-responsive', ONENAV_ASSETS . '/css/responsive.css', array('onenav-style'), ONENAV_VERSION);
-    wp_enqueue_style('onenav-admin', ONENAV_ASSETS . '/css/admin.css', array('onenav-style'), ONENAV_VERSION);
-    
+    wp_enqueue_style('onenav-theme', ONENAV_ASSETS . '/css/theme.css', array('onenav-style'), ONENAV_VERSION);
+    wp_enqueue_style('onenav-responsive', ONENAV_ASSETS . '/css/responsive.css', array('onenav-theme'), ONENAV_VERSION);
+    wp_enqueue_style('onenav-admin', ONENAV_ASSETS . '/css/admin.css', array('onenav-theme'), ONENAV_VERSION);
+
     // Scripts - jQuery üzerine build
     wp_enqueue_script('onenav-main', ONENAV_ASSETS . '/js/main.js', array('jquery'), ONENAV_VERSION, true);
-    
+    wp_enqueue_script('onenav-theme', ONENAV_ASSETS . '/js/theme.js', array('jquery', 'onenav-main'), ONENAV_VERSION, true);
+
     // Localize script for AJAX
     wp_localize_script('onenav-main', 'onenavData', array(
         'ajaxUrl' => admin_url('admin-ajax.php'),
@@ -232,6 +235,34 @@ function onenav_track_click() {
 }
 add_action('wp_ajax_onenav_track_click', 'onenav_track_click');
 add_action('wp_ajax_nopriv_onenav_track_click', 'onenav_track_click');
+
+// ============================================
+// LIKE TOGGLE
+// ============================================
+
+function onenav_toggle_like() {
+    check_ajax_referer('onenav_nonce', 'nonce');
+
+    $post_id = intval($_POST['post_id']);
+    $is_liked = isset($_POST['is_liked']) && $_POST['is_liked'] === 'true';
+
+    if ($post_id) {
+        $current_likes = (int) get_post_meta($post_id, 'like_count', true);
+
+        if ($is_liked) {
+            $new_count = $current_likes + 1;
+        } else {
+            $new_count = max(0, $current_likes - 1);
+        }
+
+        update_post_meta($post_id, 'like_count', $new_count);
+        wp_send_json_success(array('count' => $new_count));
+    }
+
+    wp_send_json_error('Invalid post ID');
+}
+add_action('wp_ajax_onenav_toggle_like', 'onenav_toggle_like');
+add_action('wp_ajax_nopriv_onenav_toggle_like', 'onenav_toggle_like');
 
 // ============================================
 // GET TRENDING KEYWORDS
